@@ -1,0 +1,17 @@
+html
+    head
+        title Discount Date Select
+        include head.pug
+    body
+        include navbar.pug
+        H1.centered Select Discount Date
+        br
+        br
+        br
+        br
+        br
+        form(action="/Sales-On-Date", method="GET") 
+            label(for="SaleDatePicker") Please Select a Date:
+            input#SaleDatePicker(type="text", name="SaleDatePicker")
+            br
+            button(type="submit") Submit

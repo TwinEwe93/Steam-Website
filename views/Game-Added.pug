@@ -1,0 +1,36 @@
+html
+    head
+      title Game Added
+      include head.pug
+    body#L_Blue
+      include navbar.pug
+      H1#centered Game Added
+      br
+      for data in result
+        Span
+          div#Game_Container
+            img(src=data.IMG_Link)
+            br
+            br
+            a(href=data.Steam_Link)
+              strong=data.Game_Name
+            br
+            a 
+              strong Price: 
+              -if (data.Price === 0)
+                ="Coming Soon"
+              -else
+                ="$" + data.Price
+            br
+            -if (data.Max_Discount_Price !== 0)
+                a
+                  strong Max Discount Price: 
+                  =data.Max_Discount_Price
+                br
+                a 
+                  strong Max Discount Percent: 
+                  =data.Max_Discount_Percent + "%"
+                br
+            a
+              strong Description: 
+              =data.Description

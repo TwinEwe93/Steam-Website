@@ -1,0 +1,33 @@
+html
+    head
+        title Copy Discount Date Select
+        include head.pug
+    body
+        include navbar.pug
+        H1.centered Copy Discounts on Date
+        br
+        br
+        br
+        br
+        br
+        form#Copy-Sales-Date-Form
+            label(for="ToDate") Date to copy to:
+            input#ToDatePicker(type="text", name="ToDatePicker")
+            br
+            br
+            br
+            label(for="FroomDate") Date to copy from:
+            input#FromDatePicker(type="text", name="FromDatePicker")
+            br
+            button(type="submit") Submit
+    script.
+        var form = document.getElementById("Copy-Sales-Date-Form")  //Getting the form element
+        function handleForm(event) { event.preventDefault(); }  //Disabling the normal form reload
+        form.addEventListener('submit', handleForm);  // Adding an event handler for submitting the forum (does nothing to my knowledge)
+
+        form.addEventListener('submit', () => {  //Adding a second event handler to handle the form submitting
+            $.get(`/API/Discounts/OnDate/Swap`, {"To": $("#ToDatePicker").val(), "From": $("#FromDatePicker").val()})  //A simple get statement that contacts the API to add the data from one date to another.  Sends the date to copy to (To) and the date to copy from (From).
+                .done(function () {  //When the API finishes, it will run this code.
+                    window.location.href = (`/Sales-On-Date?SaleDatePicker=${$("#ToDatePicker").val()}`)  //Redirects the user to the Sales Date page they copied to with the new data.  If empty, there was an error.  Should result with data if the copy date wasn't empty.
+                });
+        });

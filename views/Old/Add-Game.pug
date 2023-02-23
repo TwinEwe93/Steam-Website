@@ -1,0 +1,13 @@
+html
+    head
+        title Add Game
+        include head.pug
+    body
+        include navbar.pug
+        H1.centered Add Game
+        br
+        form(action="/Game-Added", method="POST") 
+            label(for="GameID") Please Enter a Game ID:
+            input(type="text", name="GameID")
+            br
+            button(type="submit") Submit

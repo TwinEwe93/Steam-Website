@@ -1,0 +1,60 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #a3aae4
+  }
+  
+  #test {
+    color: #000000
+  }
+  
+  div#Navbar{
+    background-color: #15145c;
+    margin-top: -72px;
+    margin-left: -60px;
+    margin-right: -58px;
+  }
+  
+  li {
+    display: inline;
+  }
+  
+  button {
+    font-size: 2em;
+    border-radius: 8px;
+    border:2px solid;
+    margin-left: 20px;
+    padding: 10px 20px;
+    background-color: #3889a1a4;
+    border-color: #114255;
+    color:#cecece;
+  }
+  
+  button:hover {
+    background-color: #0d313f;
+    border-color: #0d313f;
+    cursor: pointer;
+  }
+  
+  
+  p, a {
+    color: #000000;
+    font-size: 2em;
+  }
+
+  a {
+    font-weight: bold;
+  }
+
+  #Game_Container {
+    width: 700px;
+    height: 650px;
+    display: inline-block;
+    padding-right: 100px;
+    vertical-align: top;
+  }
+
+  img {
+    height: 300px;
+    width: 700px;
+  }

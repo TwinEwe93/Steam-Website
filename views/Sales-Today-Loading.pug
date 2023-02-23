@@ -1,0 +1,14 @@
+html
+    head
+      title Sale Today
+      include head.pug
+    body#Red
+        include navbar.pug
+        br
+        br
+        p Loading...
+    script.
+        Update_Daily_Sales()
+        .then(Return => {
+            console.log(Return)
+        })

@@ -1,0 +1,22 @@
+html
+    head
+      title Sale Today
+      include head.pug
+    body#Red
+        include navbar.pug
+        H1.centered Daily Deals
+        br
+        br
+    script.
+      $.get("/API/Discounts-Date", (Discount_Data) => {
+        $.each(Discount_Data.data, (Discount_Index) => {
+          console.log(Discount_Data.data[Discount_Index])
+          $.get(`/API/Game_Data/${Discount_Data.data[Discount_Index].App_ID}`, (Game_Data) => {
+              var str = `<span class='padded'><div id=Game_Container><img src='${Game_Data.data[0].IMG_Link}'></img><br><br><a href='${Game_Data.data[0].Steam_Link}
+              '><strong>${Game_Data.data[0].Game_Name}</strong></a><br><a><strong>Original Price: </strong>$${Discount_Data.data[Discount_Index].Initial_Price}<br><strong>Discount Percent: </strong>
+              ${Discount_Data.data[Discount_Index].Discount_Percent}%<br><strong>Discount Price: </strong>$${Discount_Data.data[Discount_Index].Discount_Price}<br></a><a><strong>Description: </strong>
+              ${Game_Data.data[0].Description}</a>`
+              $("body").append(str);
+          });
+        });
+      });

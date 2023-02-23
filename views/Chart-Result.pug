@@ -1,0 +1,60 @@
+<!doctype html>
+html
+  head
+    title Chart
+    include head.pug
+  body
+    include navbar.pug
+    br
+    div#Chart(style="width:100%; max-width:1200px; height:1000px;")
+script.
+    MakeChart(!{JSON.stringify(App_ID)}, 2)  //Makes the graph with the App_ID passed from app.js.
+
+
+    //!!!The following is an old method of using the graph.  The new method is in the jquery.js file.!!!
+
+    //var discount_data = !{JSON.stringify(discount_data)}
+    //var Price = !{JSON.stringify(Price)}
+    //var info = [];
+    //var discounts = [];
+    //var Dat = new Date();
+    //Dat.setDate(Dat.getDate() - 30)
+    //for (each in discount_data){
+    //  var Da = new Date (discount_data[each].Date);
+    //  discounts.push([Da.getDate(), (Da.getMonth() + 1), discount_data[each].Discount_Price, discount_data[each].Discount_Percent]);
+    //}
+    //for (i=0; i < 31; i++){
+    //  for (x=0; x < discounts.length; x++){
+    //    if (Dat.getDate() == discounts[x][0] && (Dat.getMonth() + 1) == discounts[x][1]){
+    //      info.push([Dat.toLocaleDateString("en-US"), discounts[x][2], "Price on " + (Dat.getMonth() + 1) + "/" + Dat.getDate() + ": $" + discounts[x][2] 
+    //      + "\n Discount Percent: " + discounts[x][3] + "%"]);
+    //     Dat.setDate(Dat.getDate() + 1)
+    //      break;
+    //    }
+    //    if (x == discounts.length - 1){
+    //      info.push([Dat.toLocaleDateString("en-US"), Price[0].Price, "Price on " + (Dat.getMonth() + 1) + "/" + Dat.getDate() + ": $" + Price[0].Price 
+    //      + "\n Discount Percent: 0%"]);
+    //      Dat.setDate(Dat.getDate() + 1)
+    //    }
+    //  }
+    //}
+    //google.charts.load('current',{packages:['corechart']});
+    //google.charts.setOnLoadCallback(drawChart);
+
+    //function drawChart() {
+    //  var data = new google.visualization.DataTable();
+    //  data.addColumn('string', "Date")
+    //  data.addColumn('number', "Price")
+    //  data.addColumn({type: 'string', role: 'tooltip'});
+    //  data.addRows(info)
+      //console.log(info)
+    //  var options = {
+    //    title: 'Discounts for 1 month',
+    //    hAxis: {title: 'Date'},
+    //    vAxis: {title: 'Price', maxValue: (Price[0].Price + 60)},
+    //    legend: 'none'
+    //  };
+    //  var chart = new google.visualization.LineChart(document.getElementById('Chart'));
+    //  chart.draw(data, options);
+    //}
+    

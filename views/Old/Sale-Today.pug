@@ -1,0 +1,39 @@
+html
+    head
+      title Sale Today
+      include head.pug
+    body#Red
+        include navbar.pug
+        H1.centered Daily Deals
+        br
+        br
+        button#RefreshSalesButton(hidden) Update Data
+            .centered
+        //br
+        //br
+        br
+        br
+        for data in Discount_Result
+            for each in Game_Data
+                -if (data.App_ID === each.App_ID)
+                    Span
+                    div#Game_Container_Sales
+                        img(src=each.IMG_Link)
+                        br
+                        br
+                        a(href=each.Steam_Link)
+                            strong=each.Game_Name
+                        br
+                        a
+                            Strong Original Price: 
+                            ="$" + data.Initial_Price
+                            br
+                            Strong Discount Percent: 
+                            =data.Discount_Percent + "%"
+                            br
+                            strong Discount Price: 
+                            ="$" + data.Discount_Price
+                        br
+                        a
+                            strong Description: 
+                            =each.Description

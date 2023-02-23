@@ -1,0 +1,57 @@
+html
+    head
+        title Delete Game
+        include head.pug
+    body#Purple
+        include navbar.pug
+        H1#centered Delete Game
+        br
+        form#Delete-Form
+            label(for="Delete-Dropdown") Select a Game: 
+            select#Delete-Dropdown
+            br
+            br
+            br
+            button(type="submit") Delete
+        script.
+            var App_ID;
+            var form = document.getElementById("Delete-Form");
+            function handleForm(event) { event.preventDefault(); }
+            form.addEventListener('submit', handleForm);
+
+            ListGames("Delete-Dropdown")
+
+            form.addEventListener('submit', () => {
+                var name = $("#Delete-Dropdown option:selected").text()
+                name = name.trim()
+                console.log(name);
+                $.ajax({
+                    type:"get",
+                    url:"/API/Game_Data/Name",
+                    data: {'Game_Name':name},
+                    success: function (data) {
+                        console.log(data);
+                        App_ID = data.data[0].App_ID;
+                        $.ajax({
+                            type:"delete",
+                            url:"/API/Price_Updates/" + App_ID,
+                            success: function(result) { console.log(result) }
+                        });
+                        $.ajax({
+                            type:"delete",
+                            url:"/API/Game_Data/" + App_ID,
+                            success: function(result) { console.log(result) }
+                        });
+                        $.ajax({
+                            type:"delete",
+                            url:"/API/Discounts/" + App_ID,
+                            success: function(result) { 
+                                console.log(result);
+                                alert("Game Deleted");
+                                alert("Game Discounts rows deleted: " + result.data.affectedRows + " rows deleted")
+                                window.location.href = "/Delete-Game"; 
+                            }
+                        });
+                    }
+                });
+            });

@@ -1,0 +1,21 @@
+html
+    head
+        title Search Game
+        include head.pug
+    body#L_Green
+        include navbar.pug
+        H1#centered Search Game
+        br
+        form(action="/Search-Result", method="get") 
+            label(for="GameID") Please Enter a Game ID:
+            input(type="text", name="GameID")
+            br
+            br
+            br
+            label(for="GameName") Please Enter a Game Name:
+            input(type="text", name="GameName")
+            br
+            br
+            br
+            br
+            button(type="submit") Submit

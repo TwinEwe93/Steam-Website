@@ -1,0 +1,30 @@
+html
+    head
+        title Discount Chart
+        include head.pug
+    body
+        include navbar.pug
+        H1.centered Discount Chart
+        br
+        form#Chart-Form
+            label(for="GameID") Please Select a Game:
+            select#ChartGame-Dropdown
+            br
+            button(type="submit") Submit
+    script.
+        var form = document.getElementById("Chart-Form");
+        function handleForm(event) { event.preventDefault(); }
+        form.addEventListener('submit', handleForm);
+
+        ListGames("ChartGame-Dropdown")  //Makes the dropdown for the Games
+
+        form.addEventListener('submit', () => {
+            var AppID;
+
+            GameName = $("#ChartGame-Dropdown option:selected").text()  //Gets the game selected
+            GameName = GameName.trim()  //Removes any unnecesary spaces
+            $.get("/API/Game_Data/Name", {"Game_Name":GameName})
+            .done((data) => {
+                window.location.href = `/Chart-Result?GameID=${data.data[0].App_ID}`;
+            });
+        })

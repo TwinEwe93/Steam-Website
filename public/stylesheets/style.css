@@ -1,0 +1,121 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #000000;
+}
+
+#L_Blue {
+  background-color: #a3aae4;
+}
+
+#L_Green {
+  background-color: #7cbb98;
+}
+
+#Red {
+  background-color: rgb(216, 156, 159);
+}
+
+#Purple {
+  background-color: #7b5492;
+}
+
+div#Navbar{
+  background-color: #15145c;
+  margin-top: -72px;
+  margin-left: -60px;
+  margin-right: -58px;
+  margin-bottom: -15px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+li {
+  display: inline;
+}
+
+button {
+  font-size: 2em;
+  border-radius: 8px;
+  border:2px solid;
+  margin-left: 20px;
+  padding: 10px 20px;
+  background-color: #3889a1a4;
+  border-color: #114255;
+  color:#cecece;
+}
+
+button:hover {
+  background-color: #0d313f;
+  border-color: #0d313f;
+  cursor: pointer;
+}
+
+p, a {
+  color: #000000;
+  font-size: 2em;
+}
+
+img {
+  height: 300px;
+  width: 700px;
+}
+
+h1{
+  font-size: 5em;
+}
+
+#Game_Container {
+  width: 700px;
+  height: 650px;
+  display: inline-block;
+  padding-right: 100px;
+  vertical-align: top;
+}
+
+#Game_Container_Sales {
+  width: 700px;
+  height: 725px;
+  display: inline-block;
+  padding-right: 100px;
+  vertical-align: top;
+}
+
+#Game_Container_Search {
+  width: 700px;
+  height: 725px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#Search_IMG {
+  width: 1500px;
+  height: 700px;
+}
+
+#Sale-Today-Dropdown {
+  display: none;
+  padding-top: 15px;
+  margin-left: -75px;
+  margin-right: -59px;
+  padding-bottom: 15px;
+  background-color: #15145c;
+}
+
+.centered {
+  text-align:center
+}
+
+.Game_Container {
+  width: 700px;
+  height: 650px;
+  display: inline-block;
+  padding-right: 100px;
+  vertical-align: top;
+}
+
+.padded {
+  display:inline-block;
+  padding-bottom:50px;
+}

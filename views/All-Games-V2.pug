@@ -1,0 +1,18 @@
+html
+    head
+      title All Games
+      include head.pug
+    body#L_Blue
+      include navbar.pug
+      H1.centered All Games
+      br
+    script.
+        $.get("/API/Game_Data/Order_By_Name", (data) => {
+            $.each(data.data, (index) => {
+              var Part1 = `<span><div id=Game_Container><img src='${data.data[index].IMG_Link}'></img><br><br><a href='${data.data[index].Steam_Link}
+                '><strong>${data.data[index].Game_Name}</strong></a><br><a><strong>App ID: </strong>${data.data[index].App_ID}</a><br><a><strong>Price: </strong>`
+              var Part2 = `</a><br><a><strong>Description: </strong>${data.data[index].Description}</a><br>`
+              if (data.data[index].Price !== 0) $("body").append(Part1 + "$" + data.data[index].Price + Part2);
+              else $("body").append(Part1 + "Coming Soon" + Part2);
+            });
+        });

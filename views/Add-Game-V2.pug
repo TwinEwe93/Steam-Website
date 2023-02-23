@@ -1,0 +1,30 @@
+html
+    head
+        title Add Game
+        include head.pug
+    body
+        include navbar.pug
+        H1.centered Add Game
+        br
+        form#AddGameForm
+            label(for="GameID") Please Enter a Game ID:
+            input#AddGameInput(type="text", name="GameID")
+            div
+            br
+            button(type="submit") Submit
+    script.
+        var form = document.getElementById("AddGameForm");
+        function handleForm(event) { event.preventDefault(); }
+        form.addEventListener('submit', handleForm);
+
+        form.addEventListener('submit', () => {
+            SteamAPICallInsert($("#AddGameInput").val())
+            .then(response => {
+                if (response === "Already in database" || response === "Invalid ID") {
+                    alert(response)
+                }
+                else {
+                    window.location.href = `/Game-Data/${$("#AddGameInput").val()}`
+                }
+            })
+        });

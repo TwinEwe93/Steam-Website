@@ -1,2 +1,4 @@
 SQL_Connector.py
 SQL_Connection.js
+.env
+node_modules/*

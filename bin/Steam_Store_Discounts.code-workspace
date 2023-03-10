@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../Python/Steam_Store_Discounts"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"ms-python.python"
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
+	}
+}

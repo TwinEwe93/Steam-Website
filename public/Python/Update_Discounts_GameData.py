@@ -19,7 +19,6 @@ def Update_Discount_and_Game_Data ():
     for each in H.cursor:
         Discount_AppIDs.append(each[0]) #Adds each AppID to Discount_AppIDs
     for each in Games: #A loop to go through each game
-        #print(each)
         response = requests.get(URL + str(each[0]) + URL2) #Makes an API request to get the data from Steam about the game
         while (response.json() is None): #If too many requests are ran, it will result in None and try again in a minute
             print("Too many requests... waiting")

@@ -4,7 +4,9 @@ var path = require('path');
 const bodyParser = require("body-parser");
 const {spawn} = require('child_process');
 const { default: axios } = require('axios');
+var nodemailer = require('nodemailer');
 var app = express();
+require('dotenv').config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -135,6 +137,33 @@ app.get('/Chart-Result', (req, res) => {
 app.get('/Copy-Sales-Date', (req, res) => {
   res.render('Copy-Sales-Date');
 });
+
+//EMAILING SERVICE BELOW
+app.get('/Email-Daily-Deals', (req, res) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.Gmail,
+      pass: process.env.GmailPass
+    }
+  });
+  
+  var mailOptions = {
+    from: `Steam Website <process.env.Gmail>`,
+    to: process.env.Comcast,
+    subject: 'Server Test',
+    text: 'This is a test email.  Delete'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.redirect("/")
+    }
+  });
+})
 
 //API'S BELOW
 //START OF DISCOUNTS API

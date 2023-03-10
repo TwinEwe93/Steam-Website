@@ -40,6 +40,10 @@ $(function() {
     $('#Copy-Sales-On-Date').click(function(){
         window.location.href = ('/Copy-Sales-Date')
     });
+    $('#Email-Deals-Button').click(function(){
+        window.location.href = ('/Email-Daily-Deals')
+    });
+
     $('#SaleDatePicker').datepicker({
         minDate: new Date("2022-04-12"),
         maxDate: new Date(),

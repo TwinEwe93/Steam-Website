@@ -65,7 +65,7 @@ app.post('/Game-Added', (req, res) => {
    });
    python.on('close', (code) => {
     console.log(`child process close all stdio with code ${code}`);
-    sql.query("Select * from game_data where App_ID = '" + req.body.GameID + "'", function (err, result, fields) {
+    sql.query(`Select * from game_data where App_ID = '${req.body.GameID}'`, function (err, result, fields) {
       if (err) throw err;
       res.render('Game-Added', {"result": result})
     });
@@ -78,13 +78,13 @@ app.get('/Search-Game', (req, res) => {
 
 app.get('/Search-Result', (req, res) => {
   if (req.query.GameID !== '' && req.query.GameName === ''){
-    sql.query("Select * from game_data where App_ID = '" + req.query.GameID.toString() + "'", function (err, result, fields){
+    sql.query(`Select * from game_data where App_ID = '${req.query.GameID.toString()}'`, function (err, result, fields){
       if (err) throw err;
       res.render('Search-Result', {"result": result})
     });
   }
   else if (req.query.GameName !== '' && req.query.GameID === ''){
-    sql.query("Select * from game_data where Game_Name like '%" + req.query.GameName.toString() + "%'", function (err, result, fields){
+    sql.query(`Select * from game_data where Game_Name like '%${req.query.GameName.toString()}%'`, function (err, result, fields){
       if (err) throw err;
       res.render('Search-Result', {"result": result})
       });
@@ -112,11 +112,11 @@ app.get('/Sales-Date-Picker', (req, res) => {
 
 app.get('/Sales-On-Date', (req, res) => {
   Time = req.query.SaleDatePicker
-  sql.query("Select * from discounts where Date = '" + Time + "' order by Discount_Percent desc", function (err, result, fields) {
+  sql.query(`Select * from discounts where Date = '${Time}' order by Discount_Percent desc`, function (err, result, fields) {
     if (err) throw err;
     Discount_Result = result;
   });
-  sql.query("Select * from game_data", function (err, result, fields){
+  sql.query(`Select * from game_data`, function (err, result, fields){
     if (err) throw err;
     res.render('Sales-On-Date', {"Discount_Result": Discount_Result, "Game_Data": result, "date": Time})
   });
@@ -149,7 +149,7 @@ app.get('/Email-Daily-Deals', (req, res) => {
   });
   
   var mailOptions = {
-    from: `Steam Website <process.env.Gmail>`,
+    from: `Steam Website  <process.env.Gmail>`,
     to: process.env.Comcast,
     subject: 'Server Test',
     text: 'This is a test email.  Delete'
@@ -169,7 +169,7 @@ app.get('/Email-Daily-Deals', (req, res) => {
 //START OF DISCOUNTS API
 
 app.get("/API/Discounts", (req, res) => {
-  sql.query("Select * from discounts order by Discount_Percent desc", function (err, result, fields){
+  sql.query(`Select * from discounts order by Discount_Percent desc`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -183,7 +183,7 @@ app.get("/API/Discounts-Date", (req, res) => {
   else {
     DateQuery = "'" + Time.getFullYear() + "-" + (Time.getMonth() + 1)  + "-" + Time.getDate() + "'";
   }
-  sql.query('Select * from discounts where Date = ' + DateQuery + ' order by Discount_Percent desc', function (err, result, fields){
+  sql.query(`Select * from discounts where Date = '${DateQuery}' order by Discount_Percent desc`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -226,15 +226,14 @@ app.get("/API/Discounts/OnDate/Swap", (req, res) => {
 
 
 app.post("/API/Discounts", (req, res) => {
-  sql.query("insert into discounts values " + req.Body.App_ID + ", '" + req.Body.Date + "', " + req.Body.Initial_Price + ", " + req.Body.Discount_Percent + ", " +
-  req.Body.Discount_Price + ";", function (err, result, fields){
+  sql.query(`insert into discounts values (${req.Body.App_ID}, '${req.Body.Date}', ${req.Body.Initial_Price}, ${req.Body.Discount_Percent}, ${req.Body.Discount_Price});`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.delete("/API/Discounts", (req, res) => {
-  sql.query("delete from discounts where App_ID = " + req.body.App_ID, function (err, result, fields){
+  sql.query(`delete from discounts where App_ID = ${req.body.App_ID}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -242,7 +241,7 @@ app.delete("/API/Discounts", (req, res) => {
 
 app.delete("/API/Discounts/:id", (req, res) => {
   var id = req.params.id;
-  sql.query("delete from discounts where App_ID = " +id, function (err, result, fields){
+  sql.query(`delete from discounts where App_ID = ${id}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -252,21 +251,21 @@ app.delete("/API/Discounts/:id", (req, res) => {
 // START OF GAME_DATA API
 
 app.get("/API/Game_Data", (req, res) => {
-  sql.query("Select * from game_data", function (err, result, fields){
+  sql.query(`Select * from game_data`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.get("/API/Game_Data/Order_By_App_ID", (req, res) => {
-  sql.query("Select * from game_data order by App_ID", function (err, result, fields){
+  sql.query(`Select * from game_data order by App_ID`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.get("/API/Game_Data/Order_By_Name", (req, res) => {
-  sql.query("Select * from game_data order by Game_Name", function (err, result, fields){
+  sql.query(`Select * from game_data order by Game_Name`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -280,23 +279,23 @@ app.get("/API/Game_Data/Name", (req, res) => {
 });
 
 app.get("/API/Game_Data/:id", (req, res) => {
-  sql.query("Select * from game_data where App_ID = " + req.params.id, function (err, result, fields){
+  sql.query(`Select * from game_data where App_ID = ${req.params.id}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.post("/API/Game_Data", (req, res) => {
-  sql.query("insert into game_data values (" + req.body.App_ID + ", '" + req.body.Game_Name + "', '" + req.body.Description + "', " + req.body.Price + ", '" +
-  req.body.IMG_Link + "', '" + req.body.Steam_Link + "', " + req.body.Coming_Soon + ", '" + req.body.Release_Date + "' , '" + req.body.Developer + "' , '" + 
-  req.body.Publisher + "', " + req.body.Achievements + ", " + req.body.Max_Discount_Price + ", " + req.body.Max_Discount_Percent + ");", function (err, result, fields){
-    if (err) res.send({error: err, data: null})
+  sql.query(`insert into game_data values (${req.body.App_ID}, "${req.body.Game_Name}", "${req.body.Description}", ${req.body.Price}, ` +
+  `"${req.body.IMG_Link}", "${req.body.Steam_Link}", ${req.body.Coming_Soon}, "${req.body.Release_Date}", "${req.body.Developer}",` +
+  `"${req.body.Publisher}", ${req.body.Achievements}, ${req.body.Max_Discount_Price}, ${req.body.Max_Discount_Percent});`, function (err, result, fields){
+    if (err)res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.delete("/API/Game_Data", (req, res) => {
-  sql.query("delete from game_data where App_ID = " + req.body.App_ID, function (err, result, fields){
+  sql.query(`delete from game_data where App_ID = ${req.body.App_ID}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -304,7 +303,7 @@ app.delete("/API/Game_Data", (req, res) => {
 
 app.delete("/API/Game_Data/:id", (req, res) => {
   var id = req.params.id;
-  sql.query("delete from game_data where App_ID = " + id, function (err, result, fields){
+  sql.query(`delete from game_data where App_ID = ${id}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -314,14 +313,14 @@ app.delete("/API/Game_Data/:id", (req, res) => {
 // START OF PRICE_UPDATES API
 
 app.get("/API/Price_Updates", (req, res) => {
-  sql.query("Select * from Price_Updates", function (err, result, fields){
+  sql.query(`Select * from Price_Updates`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.get("/API/Price_Updates/:id", (req, res) => {
-  sql.query("Select * from Price_Updates where App_ID = " + req.params.id, function (err, result, fields){
+  sql.query(`Select * from Price_Updates where App_ID = ${req.params.id}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -335,15 +334,14 @@ app.get("/API/Price_Updates/OnDate/DateRange", (req, res) => {
 });
 
 app.post("/API/Price_Updates", (req, res) => {
-  sql.query("insert into Price_Updates values " + req.Body.App_ID + ", '" + req.Body.Date + "', " + req.Body.Initial_Price + ", " + req.Body.Discount_Percent + ", " +
-  req.body.Discount_Percent + ";", function (err, result, fields){
+  sql.query(`insert into Price_Updates values (${req.Body.App_ID}, '${req.Body.Date}', ${req.Body.Initial_Price}, ${req.Body.Discount_Percent}, ${req.body.Discount_Percent};`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
 });
 
 app.delete("/API/Price_Updates", (req, res) => {
-  sql.query("delete from Price_Updates where App_ID = " + req.body.App_ID, function (err, result, fields){
+  sql.query(`delete from Price_Updates where App_ID = ${req.body.App_ID}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
@@ -351,7 +349,7 @@ app.delete("/API/Price_Updates", (req, res) => {
 
 app.delete("/API/Price_Updates/:id", (req, res) => {
   var id = req.params.id;
-  sql.query("delete from Price_Updates where App_ID = " + id, function (err, result, fields){
+  sql.query(`delete from Price_Updates where App_ID = ${id}`, function (err, result, fields){
     if (err) res.send({error: err, data: null})
     else res.send({error: null, data: result})
   });
